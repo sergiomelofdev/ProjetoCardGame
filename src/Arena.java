@@ -7,6 +7,7 @@ public class Arena {
     private int player2Life;
     private boolean gameOver;
 
+    
     public Arena(User player1, User player2, String gameMode) {
         this.player1 = player1;
         this.player2 = player2;

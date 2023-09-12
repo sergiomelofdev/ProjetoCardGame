@@ -39,7 +39,6 @@ public class Lobby {
     }
 }
 
-
 /*A classe Lobby mantém uma lista de jogadores no lobby.
 O método enterLobby permite que um jogador entre no lobby e, em seguida, tenta encontrar um adversário compatível chamando tryMatchPlayers.
 O método tryMatchPlayers verifica se há um adversário compatível (mesmo nível e modo de jogo) para o jogador que entrou no lobby. Se um adversário compatível for encontrado, a Arena é iniciada.
