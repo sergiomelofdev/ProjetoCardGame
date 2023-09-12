@@ -249,7 +249,6 @@ public class Game {
                 return true;
             }
         });
-
         // Adiciona os componentes ao diálogo de cadastro
         registrationDialog.add(registrationPanel, BorderLayout.CENTER);
         registrationDialog.add(registerButton, BorderLayout.SOUTH);
