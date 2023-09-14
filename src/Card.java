@@ -5,26 +5,25 @@ public class Card {
     private Rarity rarity;
     private int attack;
     private int defense;
-    private int cost;
+    private int timeEnergy;
     private String ability;
-    private int quantity;
 
     
     public enum Rarity {
         COMMON, UNCOMMON, RARE, EPIC, LEGENDARY
     }
+    //sugestao: enumerar tambem os tipo se cartas
 
     // Construtor
-    public Card(String name, String image, String type, Rarity rarity, int attack, int defense, int cost, String ability) {
+    public Card(String name, String image, String type, Rarity rarity, int attack, int defense, int timeEnergy, String ability) {
         this.name = name;
         this.image = image;
         this.type = type;
         this.rarity = rarity;
         this.attack = attack;
         this.defense = defense;
-        this.cost = cost;
+        this.timeEnergy = timeEnergy;
         this.ability = ability;
-        this.quantity = (type.equals("MANA")) ? Integer.MAX_VALUE : 3; 
     }
 
     
@@ -52,19 +51,11 @@ public class Card {
         return defense;
     }
 
-    public int getCost() {
-        return cost;
+    public int gettimeEnergy() {
+        return timeEnergy;
     }
 
     public String getAbility() {
         return ability;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }

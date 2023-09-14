@@ -18,7 +18,7 @@ public class Store {
         int boosterPrice = 100; // Preço de um booster em CardCoins (ajuste conforme necessário)
 
         if (cardCoins >= boosterPrice) {
-            List<Card> boosterPack = generateBoosterPack();
+            Card[] boosterPack = generateBoosterPack12RandomCards();
             for (Card card : boosterPack) {
                 if (!user.getInventory().isCardFull(card)) {
                     user.getInventory().addCard(card);
@@ -31,23 +31,26 @@ public class Store {
     }
 
     // Método para gerar um pacote de booster com 12 cartas aleatórias
-    private List<Card> generateBoosterPack() {
-        List<Card> boosterPack = new ArrayList<>();
-        // Lógica para gerar 12 cartas aleatórias
-        // Isso pode envolver escolher aleatoriamente cartas do seu conjunto de cartas disponíveis
-        // e criar instâncias aleatórias com diferentes raridades, atributos, etc.
-        // Por simplicidade, vou criar um exemplo com cartas fictícias:
+    private Card[] generateBoosterPack12RandomCards() {
+        int qtdCardsBoosterPack = 12;//modificado para melhor entendimento do codigo 
+        Card[] boosterPack = new Card[qtdCardsBoosterPack];
+        /*Lógica para gerar 12 cartas aleatórias
+        Isso pode envolver escolher aleatoriamente cartas do seu conjunto de cartas disponíveis
+        e criar instâncias aleatórias com diferentes raridades, atributos, etc.
+        Por simplicidade, vou criar um exemplo com cartas fictícias: */
         Random random = new Random();
-        for (int i = 0; i < 12; i++) {
-            Card card = new Card("Carta Aleatória " + (i + 1), "imagem", cardNumber, getRandomRarity(random),
-                    random.nextInt(10), random.nextInt(10), random.nextInt(5), "Habilidade Aleatória");
-            boosterPack.add(card);
+        int posBoosterPack = 0;
+        for (int i = 0; i < qtdCardsBoosterPack; i++) {
+            Card card = new Card("Carta Aleatória " + (i + 1), "imagem","type", getRandomRarity(random), 2, 3, 5, "ability");
+            boosterPack[posBoosterPack] = card;
+            posBoosterPack++;
         }
         return boosterPack;
     }
 
     // Método auxiliar para obter uma raridade aleatória
     private Card.Rarity getRandomRarity(Random random) {
+        //explicar
         int index = random.nextInt(Card.Rarity.values().length);
         return Card.Rarity.values()[index];
     }

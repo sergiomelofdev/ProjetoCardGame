@@ -10,7 +10,7 @@ public class User {
     private String email;
     private int level;
     private Inventory inventory;
-    private List<Deck> decks;
+    private Deck[] decks; 
     private int cardCoinsSaldo;
 
     public User(String login, String cpf, String senha, String email) {
@@ -22,7 +22,7 @@ public class User {
         this.sexo = sexo;
         this.level = 1;
         this.inventory = new Inventory();
-        this.decks = new ArrayList<>();
+        this.decks = new Deck[5];
         this.cardCoinsSaldo = 0;
     }
 
@@ -64,7 +64,7 @@ public class User {
         return inventory;
     }
 
-    public List<Deck> getDecks() {
+    public Deck[] getDecks() {
         return decks;
     }
 
