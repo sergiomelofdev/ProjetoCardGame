@@ -17,9 +17,8 @@ public class Store {
         if (inventory.wasteCardCoin(boosterPrice)) {
             Card[] boosterPack = generateBoosterPack12RandomCards();
             for (Card card : boosterPack) {
-                boolean addBoosterCardToInventory = inventory.incrementCardInInventory(card);
-                if(!addBoosterCardToInventory){ //se o usuario ja tiver a carta ele ganha 10 cardCoins
-                    inventory.earnCardCoin(10);
+                if(!inventory.incrementCardInInventory(card)){ //se o usuario n conseguir adicionar a carta no inventario, 
+                    inventory.earnCardCoin(10);      //quer dizer q ele ja tem ela logo ganha 10 cardCoins
                 }
             }
         }
@@ -27,16 +26,12 @@ public class Store {
 
     // Método para gerar um pacote de booster com 12 cartas aleatórias
     private Card[] generateBoosterPack12RandomCards() {
-        int qtdCardsBoosterPack = 12;//modificado para melhor entendimento do codigo 
+        int qtdCardsBoosterPack = 12;
         Card[] boosterPack = new Card[qtdCardsBoosterPack];
-        /*Lógica para gerar 12 cartas aleatórias
-        Isso pode envolver escolher aleatoriamente cartas do seu conjunto de cartas disponíveis
-        e criar instâncias aleatórias com diferentes raridades, atributos, etc.
-        Por simplicidade, vou criar um exemplo com cartas fictícias: */
+        //para preencher o booster pack é gerado 12 cartas aleatorias
         Random random = new Random();
-        int posBoosterPack = 0;
-        for (int i = 0; i < qtdCardsBoosterPack; i++) {
-            Card card = new Card("Carta Aleatória " + (i + 1), "imagem","type", getRandomRarity(random), 2, 3, 5, "ability");
+        for (int posBoosterPack = 0; posBoosterPack < qtdCardsBoosterPack; posBoosterPack++) {
+            Card card = new Card("Carta Aleatória " + (posBoosterPack + 1), "imagem","type", getRandomRarity(random), 2, 3, 5, "ability");
             boosterPack[posBoosterPack] = card;
             posBoosterPack++;
         }
@@ -45,7 +40,6 @@ public class Store {
 
     // Método auxiliar para obter uma raridade aleatória
     private Card.Rarity getRandomRarity(Random random) {
-        //explicar
         int index = random.nextInt(Card.Rarity.values().length);
         return Card.Rarity.values()[index];
     }
