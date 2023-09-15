@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Store {
@@ -14,19 +12,16 @@ public class Store {
 
     // Método para comprar um booster com CardCoins
     public void buyBooster(User user, Inventory inventory) {
-        int cardCoins = user.getCardCoins();
         int boosterPrice = 100; // Preço de um booster em CardCoins (ajuste conforme necessário)
 
-        if (cardCoins >= boosterPrice) {
+        if (inventory.wasteCardCoin(boosterPrice)) {
             Card[] boosterPack = generateBoosterPack12RandomCards();
             for (Card card : boosterPack) {
-                if (!user.getInventory().isCardFull(card)) {
-                    user.getInventory().addCard(card);
-                } else {
-                    user.addCardCoins(10); // Valor em CardCoins por cartas repetidas (ajuste conforme necessário)
+                boolean addBoosterCardToInventory = inventory.incrementCardInInventory(card);
+                if(!addBoosterCardToInventory){ //se o usuario ja tiver a carta ele ganha 10 cardCoins
+                    inventory.earnCardCoin(10);
                 }
             }
-            user.subtractCardCoins(boosterPrice);
         }
     }
 

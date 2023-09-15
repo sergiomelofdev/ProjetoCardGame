@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
-    private List<User> players;
+    private List<User> players;// definir numero max de players por lobby
 
     public Lobby() {
         this.players = new ArrayList<>();
@@ -45,7 +45,3 @@ O método tryMatchPlayers verifica se há um adversário compatível (mesmo nív
 O método startArena inicia a Arena com dois jogadores.
 Observe que esta é uma implementação básica e que você pode personalizá-la e expandi-la de acordo com as necessidades do seu projeto. Além disso, você pode adicionar mais lógica ao matchmaking para lidar com casos específicos, como priorizar o tempo de espera, adicionar critérios adicionais de correspondência, etc.
 */
-
-
-
-

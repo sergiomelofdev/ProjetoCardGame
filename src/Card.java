@@ -7,6 +7,7 @@ public class Card {
     private int defense;
     private int timeEnergy;
     private String ability;
+    private int idCard;
 
     
     public enum Rarity {
@@ -57,5 +58,11 @@ public class Card {
 
     public String getAbility() {
         return ability;
+    }
+    public int getIdCard() {
+        return idCard;
+    }
+    public void setIdCard(int idCard) {
+        this.idCard = idCard;
     }
 }

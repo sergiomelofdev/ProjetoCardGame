@@ -1,66 +1,44 @@
 public class Inventory {
     private Card[] cards;
-    private int nivel;
+    private boolean[] cardsInInventoryByID;
     private int cardCoins;
     
-    private static int MAX_CARDS = 200;
+    private static int totalCardsInGame = 200;
     
     public Inventory() {
-        this.cards = new Card[MAX_CARDS];
-        this.nivel = 1;
-        this.cardCoins = 0;
+        cards = new Card[totalCardsInGame];
+        cardsInInventoryByID = new boolean[totalCardsInGame];
     }
-    
+    public boolean[] getCardsInInventoryByID() {
+        return cardsInInventoryByID;
+    }
     public Card[] getCards() {
         return cards;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
     }
 
     public int getCardCoins() {
         return cardCoins;
     }
 
-    public void setCardCoins(int cardCoins) {
-        this.cardCoins = cardCoins;
+    public void earnCardCoin(int coinToAdd){
+        cardCoins += coinToAdd;
     }
 
-    public void decrementCardQuantity(Card card) {
-        if (card != null) {
-            for (Card inventoryCard : cards) {
-                if (inventoryCard.getName().equals(card.getName())) {
-                    int currentQuantity = inventoryCard.getQuantity();
-                    if (currentQuantity > 0) {
-                        inventoryCard.setQuantity(currentQuantity - 1);
-                    }
-                    break; // Apenas uma carta pode ser decrementada de cada vez
-                }
-            }
+    public boolean wasteCardCoin(int coinToLose){
+        if(cardCoins < coinToLose){ //se n tiver dinheiro suficiente retorna false
+            return false;
         }
+        cardCoins -= coinToLose;
+        return true;
     }
 
-    public void incrementCardQuantity(Card card) {
-        if (card != null) {
-            for (Card inventoryCard : cards) {
-                if (inventoryCard.getName().equals(card.getName())) {
-                    int currentQuantity = inventoryCard.getQuantity();
-                    inventoryCard.setQuantity(currentQuantity + 1);
-                    break; // Apenas uma carta pode ser incrementada de cada vez
-                }
-            }
+    public boolean incrementCardInInventory(Card cardForAdd) {
+        if(cardsInInventoryByID[cardForAdd.getIdCard()]){
+            return false; //n conseguiu incrementar pois ja tinha essa carta no inventario
         }
+        cards[cardForAdd.getIdCard()] = cardForAdd;
+        cardsInInventoryByID[cardForAdd.getIdCard()] = true;
+        return true;//conseguiu incrementar
     }
 
-    public boolean isCardFull(Card card) {
-        return false;
-    }
-
-    public void addCard(Card card) {
-    }
 }
