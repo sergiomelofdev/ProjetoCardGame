@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
-    private List<User> players;// definir numero max de players por lobby
+    private User[] players;
 
     public Lobby() {
-        this.players = new ArrayList<>();
+        players = new User[2];
     }
 
     // Método para um jogador entrar no lobby
