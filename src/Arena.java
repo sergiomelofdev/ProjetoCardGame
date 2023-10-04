@@ -1,20 +1,16 @@
 public class Arena {
     private User player1;
     private User player2;
-    private Card[][] fieldPlayer1;
-    private Card[][] fieldPlayer2;
-    private int player1Life;
-    private int player2Life;
+    private Field fieldPlayer1;
+    private Field fieldPlayer2;
     private boolean gameOver;
 
     
-    public Arena(User player1, User player2, String gameMode) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.fieldPlayer1 = new Card[2][5];
-        this.fieldPlayer2 = new Card[2][5];
-        this.player1Life = 20;
-        this.player2Life = 20;
+    public Arena(User[] lobbyUsers1, User[] lobbyUsers2) {
+        this.player1 = lobbyUsers1[0];
+        this.player2 = lobbyUsers2[0];
+        this.fieldPlayer1 = new Field();
+        this.fieldPlayer2 = new Field();
         this.gameOver = false;
     }
 
