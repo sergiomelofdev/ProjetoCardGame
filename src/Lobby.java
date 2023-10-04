@@ -1,47 +1,114 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Lobby {
+
     private User[] players;
+    private String gameMode;
+    private int qtdUsersIntLobby;
+    private int lobbyLevel;
 
     public Lobby() {
         players = new User[2];
     }
+    private boolean isFull() {
+        return qtdUsersIntLobby >= 2;
+    }
+    private boolean isEmpty() {
+        return qtdUsersIntLobby == 0;
+    }
+
+    //metodos getters
+    public String getGameMode() {
+        return gameMode;
+    }
+    public int getLobbyLevel() {
+        return lobbyLevel;
+    }
+    public int getQtdUsersIntLobby() {
+        return qtdUsersIntLobby;
+    }
+    public User[] getPlayers() {
+        return players;
+    }
 
     // Método para um jogador entrar no lobby
-    public void enterLobby(User user) {
-        players.add(user);
-        System.out.println(user.getUsername() + " entrou no lobby.");
-        tryMatchPlayers(user);
+    public void enterLobby(User enterUser) {
+        if(isFull()) {
+            System.out.println("O lobby está cheio!");
+            return;
+        }
+        players[qtdUsersIntLobby] = enterUser;
+        qtdUsersIntLobby++;
+        System.out.println(enterUser.getUsername() + " entrou no lobby.");
+
+        changeLobbyLevel();
+        selectGameMode();
+    }
+
+    // metodo para remover jogadores do lobby
+    public void leaveLobby(User leaveUser) {
+        if (isEmpty()) {
+            return;
+        }
+        if (players[0] == leaveUser && players[1] != null) {
+            players[0] = players[1];
+            players[1] = null;
+            qtdUsersIntLobby--;
+            System.out.println(leaveUser.getUsername() + " saiu do lobby.");
+        } else if (players[1] == leaveUser && players[0]!= null) {
+            players[1] = null;
+            qtdUsersIntLobby--;
+            System.out.println(leaveUser.getUsername() + " saiu do lobby.");
+        }
+
+        changeLobbyLevel();
+        selectGameMode();
+        //metodo implementado por enquanto para a penas a situação de apenas podere ter 2 players no lobby
+    }
+
+    // definindo o nivel do lobby: partindo do level dos players nele, se tiver dois players recebe o maior nivel dentre os players
+    public void changeLobbyLevel() {
+        if (qtdUsersIntLobby == 1){
+            lobbyLevel = players[0].getLevel();
+        }else if (qtdUsersIntLobby == 2){
+            if (players[0].getLevel() > players[1].getLevel()){
+                lobbyLevel = players[0].getLevel();
+            }else{
+                lobbyLevel = players[1].getLevel();
+            }
+        }
+    }
+
+    // metodo de definir o modo de jogo a partir do numero de players no lobby
+    public void selectGameMode() {
+        if(qtdUsersIntLobby == 2){
+            gameMode = "Dual_Mode";
+        }
+        gameMode = "Normal_Game";
+        //por enquanto apenas esses dois modos de jogo, porem no futuro...
     }
 
     // Método para tentar fazer o matchmaking entre jogadores
-    private void tryMatchPlayers(User user) {
-        int userLevel = user.getLevel();
-        String gameMode = "Normal Game"; // Modo de jogo padrão
+    public void tryMatchPlayers() {
 
-        // Encontre um jogador compatível
-        for (User opponent : players) {
-            if (opponent != user && opponent.getLevel() == userLevel && gameMode.equals("Normal Game")) {
-                System.out.println("Partida encontrada!");
-                startArena(user, opponent, gameMode);
-                return;
-            }
+        if(qtdUsersIntLobby == 1){
+        System.out.println("Procurando um oponente digno...");
+        }else if(qtdUsersIntLobby == 2){
+            System.out.println("Procurando oponentes dignos...");
         }
+        Lobby lobbyOpponent = new Lobby(); //lobby oponente ficticio
 
-        System.out.println("Aguardando por um adversário...");
+        //teste de lobby compativel
+        if (lobbyOpponent.getGameMode().equals(this.gameMode) && lobbyOpponent.getLobbyLevel() == this.lobbyLevel) {
+            startArena(lobbyOpponent);
+        }
     }
 
-    // Método para iniciar a Arena com dois jogadores
-    private void startArena(User user1, User user2, String gameMode) {
-        Arena arena = new Arena(user1, user2, gameMode);
+    // Método para iniciar a Arena
+    private void startArena(Lobby lobbyOpponent) {
+        if(gameMode.equals("Dual_Mode")){
+            ArenaDupla arenaDupla = new ArenaDupla(lobbyOpponent.getPlayers(), getPlayers());
+            arenaDupla.startGame();
+        }
+        Arena arena = new Arena(lobbyOpponent.getPlayers(), getPlayers());
         arena.startGame();
     }
 }
-
-/*A classe Lobby mantém uma lista de jogadores no lobby.
-O método enterLobby permite que um jogador entre no lobby e, em seguida, tenta encontrar um adversário compatível chamando tryMatchPlayers.
-O método tryMatchPlayers verifica se há um adversário compatível (mesmo nível e modo de jogo) para o jogador que entrou no lobby. Se um adversário compatível for encontrado, a Arena é iniciada.
-O método startArena inicia a Arena com dois jogadores.
-Observe que esta é uma implementação básica e que você pode personalizá-la e expandi-la de acordo com as necessidades do seu projeto. Além disso, você pode adicionar mais lógica ao matchmaking para lidar com casos específicos, como priorizar o tempo de espera, adicionar critérios adicionais de correspondência, etc.
-*/
