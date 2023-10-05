@@ -1,8 +1,9 @@
 public class Arena {
     private User player1;
     private User player2;
-    private Field fieldPlayer1;
-    private Field fieldPlayer2;
+    private Field leftField;
+    private Field midField;
+    private Field rightField;
     private boolean gameOver;
 
     
