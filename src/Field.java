@@ -1,13 +1,26 @@
 
 // Classe que representa o campo do jogo falta implementar atributos = sub camos e seu tamanho e habilidade/tipo/efeito, metodos de retirar e inserir cartas 
 public class Field {
+    //atributos referentes ao lado jogador q esta visualizando o jogo 
     private Card[][] yourSubField;
-    private int qtdCardsInYourSubField;	
+    private int qtdCardsInYourSubField;
+    private int yourSideFieldTotalPower;
+
+    //atributos referentes ao lado do oponente
     private Card[][] subFieldOpponent;
-    private int qtdCardsSubFieldOpponent;	
+    private int qtdCardsSubFieldOpponent;
+    private int opponentSideFieldTotalPower;	
+    
     private String nameField;	
     private EffectField effectField;
-    private int maxCardsInyourSubField = 4; // tamanho max de cartas em cada campo ainda a ser determinado
+    private final int maxCardsSubField = 4; // tamanho max de cartas em cada campo ainda a ser determinado
+
+    public int getYourSideFieldTotalPower() {
+        return yourSideFieldTotalPower;
+    }
+    public int getOpponentSideFieldTotalPower() {
+        return opponentSideFieldTotalPower;
+    }
 
     public enum EffectField {
         noEffect,
@@ -22,15 +35,15 @@ public class Field {
     public Field(String nameField, EffectField effectField) {
         this.nameField = nameField;
         this.effectField = effectField;
-        yourSubField = new Card[2][2];
-        yourSubFieldOpponent = new Card[2][2];
+        yourSubField = new Card[maxCardsSubField/2][maxCardsSubField/2];
+        yourSubFieldOpponent = new Card[maxCardsSubField/2][maxCardsSubField/2];
     }
 
     public boolean yourFieldIsFull() {
-        return qtdCardsInyourSubField == maxCardsInyourSubField; 
+        return qtdCardsInyourSubField == maxCardsSubField; 
     }
     public boolean opponentFieldIsFull() {
-        return qtdCardsInyourSubField == maxCardsInyourSubField;
+        return qtdCardsInyourSubField == maxCardsSubField;
     }
     public boolean yourFieldIsEmpty() {
         return qtdCardsInyourSubField == 0; 
@@ -43,8 +56,8 @@ public class Field {
         if(yourFieldIsFull()){
             return null;
         }
-        for(int lineFieldIndex = 0; lineFieldIndex < (maxCardsInyourSubField/2); lineFieldIndex++) {
-            for(int columnFieldIndex = 0; columnFieldIndex < (maxCardsInyourSubField/2); columnFieldIndex++) {
+        for(int lineFieldIndex = 0; lineFieldIndex < (maxCardsSubField/2); lineFieldIndex++) {
+            for(int columnFieldIndex = 0; columnFieldIndex < (maxCardsSubField/2); columnFieldIndex++) {
                 if(yourSubField[lineFieldIndex][columnFieldIndex] == null) {
                     yourSubField[lineFieldIndex][columnFieldIndex] = insertedCard;
                     qtdCardsInYourSubField++;
@@ -61,11 +74,30 @@ public class Field {
         if(yourFieldIsEmpty()){
             return null;
         }
-        for(int lineFieldIndex = 0; lineFieldIndex < (maxCardsInyourSubField/2); lineFieldIndex++) {
-            for(int columnFieldIndex = 0; columnFieldIndex < (maxCardsInyourSubField/2); columnFieldIndex++) {
+        for(int lineFieldIndex = 0; lineFieldIndex < (maxCardsSubField/2); lineFieldIndex++) {
+            for(int columnFieldIndex = 0; columnFieldIndex < (maxCardsSubField/2); columnFieldIndex++) {
                 if(yourSubField[lineFieldIndex][columnFieldIndex] == removedCard) {
                     //se achar a carta q deseja remover no campo, a carta sera removida e todas as cartas depois dela vao andar como uma fila
                     
+                }
+            }
+        }
+    }
+
+    public void updateTotalPowerBothSides(){
+        int totalSumPowerYourSide = 0;
+        for (int i = 0; i < maxCardsSubField/2; i++) {
+            for (int j = 0; j < maxCardsSubField/2; j++) {
+                if(yourSubField[i][j] != null){
+                    totalSumPowerYourSide += yourSubField[i][j].getPower();
+                }
+            }
+        }
+        int totalSumPowerOpponentSide = 0;
+        for (int i = 0; i < maxCardsSubField/2; i++) {
+            for (int j = 0; j < maxCardsSubField/2; j++) {
+                if(subFieldOpponent[i][j] != null){
+                    totalSumPowerYourSide += subFieldOpponent[i][j].getPower();
                 }
             }
         }
