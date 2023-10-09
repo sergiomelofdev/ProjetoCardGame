@@ -36,20 +36,20 @@ public class Field {
         this.nameField = nameField;
         this.effectField = effectField;
         yourSubField = new Card[maxCardsSubField/2][maxCardsSubField/2];
-        yourSubFieldOpponent = new Card[maxCardsSubField/2][maxCardsSubField/2];
+        subFieldOpponent = new Card[maxCardsSubField/2][maxCardsSubField/2];
     }
 
     public boolean yourFieldIsFull() {
-        return qtdCardsInyourSubField == maxCardsSubField; 
+        return qtdCardsInYourSubField == maxCardsSubField; 
     }
     public boolean opponentFieldIsFull() {
-        return qtdCardsInyourSubField == maxCardsSubField;
+        return qtdCardsSubFieldOpponent == maxCardsSubField;
     }
     public boolean yourFieldIsEmpty() {
-        return qtdCardsInyourSubField == 0; 
+        return qtdCardsInYourSubField == 0; 
     }
     public boolean opponentFieldIsEmpty() {
-        return qtdCardsInyourSubField == 0;
+        return qtdCardsSubFieldOpponent == 0;
     }
 
     public Card putCardInYourField(Card insertedCard) {
@@ -65,9 +65,7 @@ public class Field {
                 }
             }
         }
-
-        yourSubField[qtdCardsInyourSubField] = insertedCard;
-        return insertedCard;
+        return null;
     }
 
     public Card remoCardFromYourField(Card removedCard) {
