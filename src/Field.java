@@ -21,16 +21,6 @@ public class Field {
     public int getOpponentSideFieldTotalPower() {
         return opponentSideFieldTotalPower;
     }
-
-    public enum EffectField {
-        noEffect,
-        disableCardEffects,
-        reduce1PowerCardsPerTurn,
-        increasePowerCards,
-        discartOneCardBothHands,
-        fillBothHands
-        //apenas esses efeitos, por enquanto...
-    }
     
     public Field(String nameField, EffectField effectField) {
         this.nameField = nameField;
