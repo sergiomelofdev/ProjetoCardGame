@@ -1,20 +1,27 @@
+import java.util.ArrayList;
+
 public class Arena {
-    private User player1;
-    private User player2;
-    private Field leftField;
-    private Field midField;
-    private Field rightField;
+    private ArrayList<User> teamBlue;
+    private ArrayList<User> teamRed;
+    private ArrayList<Field> fields;
     private int currentRound;
     private int finalRound;
     private boolean gameOver;
 
     
-    public Arena(User[] lobbyUsers1, User[] lobbyUsers2) {
-        this.player1 = lobbyUsers1[0];
-        this.player2 = lobbyUsers2[0];
-        this.leftField = new Field();
-        this.midField = new Field();
-        this.rightField = new Field();
+    public Arena(Lobby lobbyTeamBlue, Lobby lobbyTeamRed) {
+        for(int i = 0; i < lobbyTeamBlue.getPlayers().length; i++) {
+            teamBlue.add(lobbyTeamBlue.getPlayers()[i]);
+        }
+        for(int i = 0; i < lobbyTeamRed.getPlayers().length; i++) {
+            teamRed.add(lobbyTeamRed.getPlayers()[i]);
+        }
+        Field field1 = new Field();
+        Field field2 = new Field();
+        Field field3 = new Field();
+        fields.add(field1);
+        fields.add(field2);
+        fields.add(field3);
         this.currentRound = 1;
         this.finalRound = 7;
         this.gameOver = false;
@@ -45,24 +52,23 @@ public class Arena {
     }
     // Método para finalizar o jogo
     private void endGame() {
-        int situationLeftField = decideSituationField(leftField);
-        int situationMidField = decideSituationField(midField);
-        int situationRightField = decideSituationField(rightField);
-        int[] situationGame = {situationLeftField, situationMidField, situationRightField};
-        int countLocationPlayer1Win = 0;
-        int countLocationPlayer2Win = 0;
-        for (int i = 0; i < situationGame.length; i++) {
-            if(situationGame[i] == 1){
-                countLocationPlayer1Win++;
-            }
-            if(situationGame[i] == 2){
-                countLocationPlayer2Win++;
+        int countLocationTeamBlueWins = 0;
+        int countLocationTeamRedWins = 0;
+        for(int i = 0; i < fields.size(); i++) {
+            if(decideSituationField(fields.get(i)) == 1){
+                countLocationTeamBlueWins++;
+            }else if(decideSituationField(fields.get(i)) == 2){
+                countLocationTeamRedWins++;
             }
         }
-        if (countLocationPlayer1Win > countLocationPlayer2Win) {
-            System.out.println(player1.getUsername() + " venceu!");
-        } else if (countLocationPlayer1Win < countLocationPlayer2Win) {
-            System.out.println(player2.getUsername() + " venceu!");
+        if (countLocationTeamBlueWins > countLocationTeamRedWins) {
+            for(int i = 0; i < teamBlue.size(); i++) {
+                System.out.println(teamBlue.get(i).getUsername() + " venceu!");
+            }
+        } else if (countLocationTeamBlueWins < countLocationTeamRedWins) {
+            for(int i = 0; i < teamRed.size(); i++) {
+                System.out.println(teamRed.get(i).getUsername() + " venceu!");
+            }
         }else{
             System.out.println("Empate");
         }
@@ -70,7 +76,20 @@ public class Arena {
 
     // Método para iniciar o jogo
     public void startGame() {
-        System.out.println("Iniciando partida entre " + player1.getUsername() + " e " + player2.getUsername());
+        System.out.print("Iniciando partida entre ");
+        if(teamBlue.size() == 1 && teamRed.size() == 1){
+            System.out.println(teamBlue.get(0).getUsername() + " e " + teamRed.get(0).getUsername());
+        }else{
+            for (int i = 0; i < teamBlue.size(); i++) {
+            System.out.print(teamBlue.get(i).getUsername() + " e ");
+            }
+            System.out.println("VS ");
+            for (int i = 0; i < teamRed.size(); i++) {
+                System.out.print(teamRed.get(i).getUsername() + " e ");
+            }
+            System.out.println();
+        }
+        
         // Lógica para inicialização do jogo, como distribuir cartas, escolher quem começa, etc.
         while (!gameOver) {
             playTurn();

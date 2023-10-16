@@ -1,4 +1,4 @@
 
-public class ArenaDupla {
+public class ArenaDupla  extends Arena {
     
 }
