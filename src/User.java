@@ -7,7 +7,8 @@ public class User {
     private String email;
     private int level;
     private Inventory inventory;
-    private Deck[] decks; 
+    private Deck[] decks;
+    private Deck chosedDeckToPlay; 
 
     public User(String login, String cpf, String senha, String email) {
         this.login = login;
@@ -65,6 +66,12 @@ public class User {
 
     public String getUsername() {
         return login;
+    }
+    public Deck getChosedDeckToPlay() {
+        return chosedDeckToPlay;
+    }
+    public void setChosedDeckToPlay(Deck chosedDeckToPlay) {
+        this.chosedDeckToPlay = chosedDeckToPlay;
     }
 
     public boolean checkLogin(String login2, String senha2) {
