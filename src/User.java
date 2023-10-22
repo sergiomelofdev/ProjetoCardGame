@@ -1,4 +1,4 @@
-public class User {
+public class User implements Comparable<User> {
     private String login;
     private String cpf;
     private String senha;
@@ -22,6 +22,14 @@ public class User {
         this.decks = new Deck[5];
     }
 
+    @Override
+    public int compareTo(User userToCompare) {
+        if(this.email.equals(userToCompare.getEmail())){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
     // Métodos getters e setters para acessar e modificar os atributos privados
 
     public String getLogin() {
