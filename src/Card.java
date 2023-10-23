@@ -3,8 +3,7 @@ public class Card {
     private String image;
     private String type; 
     private Rarity rarity;
-    private int attack;
-    private int defense;
+    private int power;
     private int timeEnergy;
     private String ability;
     private int idCard;
@@ -16,13 +15,12 @@ public class Card {
     //sugestao: enumerar tambem os tipo se cartas
 
     // Construtor
-    public Card(String name, String image, String type, Rarity rarity, int attack, int defense, int timeEnergy, String ability) {
+    public Card(String name, String image, String type, Rarity rarity, int power, int timeEnergy, String ability) {
         this.name = name;
         this.image = image;
         this.type = type;
         this.rarity = rarity;
-        this.attack = attack;
-        this.defense = defense;
+        this.power = power;
         this.timeEnergy = timeEnergy;
         this.ability = ability;
     }
@@ -44,12 +42,8 @@ public class Card {
         return rarity;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getDefense() {
-        return defense;
+    public int getPower() {
+        return power;
     }
 
     public int gettimeEnergy() {
