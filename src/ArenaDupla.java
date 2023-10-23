@@ -5,6 +5,8 @@ public class ArenaDupla  extends Arena {
     private User player4;
     private QueueCards choseDeckplayer3;
     private QueueCards choseDeckplayer4;
+    private QueueCards player3Hand;
+    private QueueCards player4Hand; 
     private int qtdCardInDeckPlayer3;
     private int qtdCardInDeckPlayer4;
     private int temporalEnergyplayer3;
@@ -18,6 +20,8 @@ public class ArenaDupla  extends Arena {
         this.choseDeckplayer4 = player4.getChosedDeckToPlay().getCards();
         this.qtdCardInDeckPlayer3 = choseDeckplayer3.getVetorQueue().length;
         this.qtdCardInDeckPlayer4 = choseDeckplayer4.getVetorQueue().length;
+        this.player3Hand = new QueueCards(7);
+        this.player4Hand = new QueueCards(7);
         Field field4 = new Field();
         Field field5 = new Field();
         fields.add(field4);
@@ -68,10 +72,20 @@ public class ArenaDupla  extends Arena {
                 int posCardInDeck = random.nextInt(qtdCardInDeckPlayer1);
                 player1Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player1));
             }
-        }else{
+        }else if(player.compareTo(player2) == 1){
             for (int i = 0; i < qtdCardToBuy; i++) {
                 int posCardInDeck = random.nextInt(qtdCardInDeckPlayer2);
                 player2Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player2));
+            }
+        }else if(player.compareTo(player3) == 1){
+            for (int i = 0; i < qtdCardToBuy; i++) {
+                int posCardInDeck = random.nextInt(qtdCardInDeckPlayer3);
+                player3Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player3));
+            }
+        }else if(player.compareTo(player4) == 1){
+            for (int i = 0; i < qtdCardToBuy; i++) {
+                int posCardInDeck = random.nextInt(qtdCardInDeckPlayer4);
+                player4Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player4));
             }
         }
         
@@ -79,33 +93,17 @@ public class ArenaDupla  extends Arena {
 
     @Override
     public Card removeCardInDeck(int posCardInDeck, User player){
-        
-        if(player.compareTo(player1)){
-            for (int i = posCardInDeck; i < choseDeckplayer1.length; i++) {
-                if(choseDeckplayer1[i] == null){
-                    break;
-                }
-                if(i == choseDeckplayer1.length-1 && choseDeckplayer1 != null){
-                    choseDeckplayer1[i] = null;
-                    break;
-                }
-                choseDeckplayer1[i] = choseDeckplayer1[i+1];
-            }
-            qtdCardInDeckPlayer1--;
-            return choseDeckplayer1[posCardInDeck];
-        }else if(player.compareTo(player2)){
-            for (int i = posCardInDeck; i < choseDeckplayer2.length; i++) {
-                if(choseDeckplayer2[i] == null){
-                    break;
-                }
-                if(i == choseDeckplayer2.length-1 && choseDeckplayer2[i] != null){
-                    choseDeckplayer2[i] = null;
-                    break;
-                }
-                choseDeckplayer2[i] = choseDeckplayer2[i+1];
-            }
-            qtdCardInDeckPlayer2--;
-            return choseDeckplayer2[posCardInDeck];
+        if(player.compareTo(player1) == 1){
+            return choseDeckplayer1.removeCardQueue(choseDeckplayer1.getVetorQueue()[posCardInDeck]);
+            
+        }else if(player.compareTo(player2) == 1){
+            return choseDeckplayer2.removeCardQueue(choseDeckplayer2.getVetorQueue()[posCardInDeck]);
+
+        }else if(player.compareTo(player3) == 1){
+            return choseDeckplayer3.removeCardQueue(choseDeckplayer3.getVetorQueue()[posCardInDeck]);
+
+        }else{
+            return choseDeckplayer4.removeCardQueue(choseDeckplayer4.getVetorQueue()[posCardInDeck]);
         }
     }
 }
