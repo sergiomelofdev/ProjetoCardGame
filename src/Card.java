@@ -2,30 +2,38 @@ public class Card {
     private String name;
     private String image;
     private String type; 
-    private Rarity rarity;
+    private EnumRarityCard rarity;
     private int power;
     private int timeEnergy;
     private String ability;
     private int idCard;
 
-    
-    public enum Rarity {
-        COMMON, UNCOMMON, RARE, EPIC, LEGENDARY
-    }
-    //sugestao: enumerar tambem os tipo se cartas
 
     // Construtor
-    public Card(String name, String image, String type, Rarity rarity, int power, int timeEnergy, String ability) {
+    public Card(String name, String image, String type, int power, int timeEnergy, String ability) {
         this.name = name;
         this.image = image;
         this.type = type;
-        this.rarity = rarity;
+        this.rarity = ;
         this.power = power;
         this.timeEnergy = timeEnergy;
         this.ability = ability;
     }
 
-    
+    public EnumRarityCard generateRarityCard() {
+        double numeroAleatorio = Math.random();
+
+        double chanceAcumulada = 0.0;
+        for (EnumRarityCard rarity : EnumRarityCard.values()) {
+            chanceAcumulada += rarity.getRarity();
+            if (numeroAleatorio < chanceAcumulada) {
+                return rarity;
+            }
+        }
+
+        return EnumRarityCard.COMMON;
+    }
+
     public String getName() {
         return name;
     }
@@ -38,7 +46,7 @@ public class Card {
         return type;
     }
 
-    public Rarity getRarity() {
+    public EnumRarityCard getRarity() {
         return rarity;
     }
 
