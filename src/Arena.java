@@ -5,16 +5,16 @@ public class Arena {
     protected ArrayList<Field> fields; //todos os campos da arena
     protected User player1; //jogador 1
     protected User player2; //jogador 2
-    protected Card[] choseDeckplayer1; //deck do jogador 1
+    protected QueueCards choseDeckplayer1; //deck do jogador 1
     protected int qtdCardInDeckPlayer1;
-    protected Card[] choseDeckplayer2; //deck do jogador 2
+    protected QueueCards choseDeckplayer2; //deck do jogador 2
     protected int qtdCardInDeckPlayer2;
-    protected ArrayList<Card> player1Hand; //mao atual do jogador 1
-    protected ArrayList<Card> player2Hand; //mao atual do jogador 2
+    protected QueueCards player1Hand; //mao atual do jogador 1
+    protected QueueCards player2Hand; //mao atual do jogador 2
     protected int temporalEnergyplayer1; //número de energia de cada jogador
     protected int temporalEnergyplayer2; //número de energia de cada jogador
-    protected ArrayList<Card> garbage; //lugar onde as cartas descartadas vao
-    protected ArrayList<Card> cemetery; //lugar onde as cartas destruidas vao
+    protected QueueCards garbage; //lugar onde as cartas descartadas vao
+    protected QueueCards cemetery; //lugar onde as cartas destruidas vao
     protected int currentRound; //número da rodada atual
     protected int finalRound; //número da rodada final
     protected boolean gameOver; //se o jogo acabou
@@ -23,12 +23,14 @@ public class Arena {
     public Arena(Lobby lobbyTeamBlue, Lobby lobbyTeamRed) {
         this.player1 = lobbyTeamBlue.getPlayers()[0];
         this.player2 = lobbyTeamRed.getPlayers()[0];
-        this.choseDeckplayer1 = player1.getChoseDeck().clone();
-        this.choseDeckplayer2 = player2.getChoseDeck().clone();
-        this.qtdCardInDeckPlayer1 = choseDeckplayer1.length;
-        this.qtdCardInDeckPlayer2 = choseDeckplayer2.length;
-        this.garbage = new ArrayList<Card>();
-        this.cemetery = new ArrayList<Card>();
+        this.choseDeckplayer1 = player1.getChosedDeckToPlay().getCards();
+        this.choseDeckplayer2 = player2.getChosedDeckToPlay().getCards();
+        this.qtdCardInDeckPlayer1 = choseDeckplayer1.getVetorQueue().length;
+        this.qtdCardInDeckPlayer2 = choseDeckplayer2.getVetorQueue().length;
+        this.garbage = new QueueCards(qtdCardInDeckPlayer1);
+        this.cemetery = new QueueCards(qtdCardInDeckPlayer1);
+        this.player1Hand = new QueueCards(7);
+        this.player2Hand = new QueueCards(7);
         Field field1 = new Field();
         Field field2 = new Field();
         Field field3 = new Field();
@@ -44,45 +46,23 @@ public class Arena {
     }
 
     public Card removeCardInDeck(int posCardInDeck, User player){
-        if(player.compareTo(player1)){
-            for (int i = posCardInDeck; i < choseDeckplayer1.length; i++) {
-                if(choseDeckplayer1[i] == null){
-                    break;
-                }
-                if(i == choseDeckplayer1.length-1 && choseDeckplayer1 != null){
-                    choseDeckplayer1[i] = null;
-                    break;
-                }
-                choseDeckplayer1[i] = choseDeckplayer1[i+1];
-            }
-            qtdCardInDeckPlayer1--;
-            return choseDeckplayer1[posCardInDeck];
+        if(player.compareTo(player1) == 1){
+            return choseDeckplayer1.removeCardQueue(choseDeckplayer1.getVetorQueue()[posCardInDeck]);
         }else{
-            for (int i = posCardInDeck; i < choseDeckplayer2.length; i++) {
-                if(choseDeckplayer2[i] == null){
-                    break;
-                }
-                if(i == choseDeckplayer2.length-1 && choseDeckplayer2[i] != null){
-                    choseDeckplayer2[i] = null;
-                    break;
-                }
-                choseDeckplayer2[i] = choseDeckplayer2[i+1];
-            }
-            qtdCardInDeckPlayer2--;
-            return choseDeckplayer2[posCardInDeck];
+            return choseDeckplayer2.removeCardQueue(choseDeckplayer2.getVetorQueue()[posCardInDeck]);
         }
     }
     public void buyCard(int qtdCardToBuy, User player) {
         Random random = new Random();
-        if(player.compareTo(player1)){
+        if(player.compareTo(player1) == 1){
             for (int i = 0; i < qtdCardToBuy; i++) {
                 int posCardInDeck = random.nextInt(qtdCardInDeckPlayer1);
-                player1Hand.add(removeCardInDeck(posCardInDeck, player1));
+                player1Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player1));
             }
         }else{
             for (int i = 0; i < qtdCardToBuy; i++) {
                 int posCardInDeck = random.nextInt(qtdCardInDeckPlayer2);
-                player2Hand.add(removeCardInDeck(posCardInDeck, player2));
+                player2Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player2));
             }
         }
         

@@ -3,8 +3,8 @@ import java.util.Random;
 public class ArenaDupla  extends Arena {
     private User player3;
     private User player4;
-    private Card[] choseDeckplayer3;
-    private Card[] choseDeckplayer4;
+    private QueueCards choseDeckplayer3;
+    private QueueCards choseDeckplayer4;
     private int qtdCardInDeckPlayer3;
     private int qtdCardInDeckPlayer4;
     private int temporalEnergyplayer3;
@@ -14,10 +14,10 @@ public class ArenaDupla  extends Arena {
         super(lobbyTeamBlue, lobbyTeamRed);
         this.player3 = lobbyTeamBlue.getPlayers()[1];
         this.player4 = lobbyTeamRed.getPlayers()[1];
-        this.choseDeckplayer3 = player3.getChoseDeck().clone();
-        this.choseDeckplayer4 = player4.getChoseDeck().clone();
-        this.qtdCardInDeckPlayer3 = choseDeckplayer3.length;
-        this.qtdCardInDeckPlayer4 = choseDeckplayer4.length;
+        this.choseDeckplayer3 = player3.getChosedDeckToPlay().getCards();
+        this.choseDeckplayer4 = player4.getChosedDeckToPlay().getCards();
+        this.qtdCardInDeckPlayer3 = choseDeckplayer3.getVetorQueue().length;
+        this.qtdCardInDeckPlayer4 = choseDeckplayer4.getVetorQueue().length;
         Field field4 = new Field();
         Field field5 = new Field();
         fields.add(field4);
@@ -63,15 +63,15 @@ public class ArenaDupla  extends Arena {
     @Override
     public void buyCard(int qtdCardToBuy, User player) {
         Random random = new Random();
-        if(player.compareTo(player1)){
+        if(player.compareTo(player1) == 1){
             for (int i = 0; i < qtdCardToBuy; i++) {
                 int posCardInDeck = random.nextInt(qtdCardInDeckPlayer1);
-                player1Hand.add(removeCardInDeck(posCardInDeck, player1));
+                player1Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player1));
             }
         }else{
             for (int i = 0; i < qtdCardToBuy; i++) {
                 int posCardInDeck = random.nextInt(qtdCardInDeckPlayer2);
-                player2Hand.add(removeCardInDeck(posCardInDeck, player2));
+                player2Hand.addCardInQueue(removeCardInDeck(posCardInDeck, player2));
             }
         }
         
@@ -79,6 +79,7 @@ public class ArenaDupla  extends Arena {
 
     @Override
     public Card removeCardInDeck(int posCardInDeck, User player){
+        
         if(player.compareTo(player1)){
             for (int i = posCardInDeck; i < choseDeckplayer1.length; i++) {
                 if(choseDeckplayer1[i] == null){
