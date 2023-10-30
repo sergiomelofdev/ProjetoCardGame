@@ -25,7 +25,7 @@ public class QueueCards {
         lastCardInQueue++;
         return true;
     }
-    public boolean removeCardQueue(Card cardToRemove){
+    public Card removeCardQueue(Card cardToRemove){
         for (int i = 0; i<lastCardInQueue; i++) {
             if(vetorQueue[i].getIdCard() == cardToRemove.getIdCard()){
                 for (int posCardToRemove = i; posCardToRemove < lastCardInQueue; posCardToRemove++) {
@@ -36,10 +36,10 @@ public class QueueCards {
                     }
                 }
                 lastCardInQueue--;
-                return true;
+                return cardToRemove;
             }
         }
-        return false;
+        return null;
     }
     public boolean cardHasDuplicates(int idCardToTestHasDuplicate) {
         for (Card card : vetorQueue) {
