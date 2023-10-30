@@ -10,11 +10,11 @@ public class Card {
 
 
     // Construtor
-    public Card(String name, String image, String type, int power, int timeEnergy, String ability) {
+    public Card(String name, String image, String type, EnumRarityCard rarity, int power, int timeEnergy, String ability) {
         this.name = name;
         this.image = image;
         this.type = type;
-        this.rarity = ;
+        this.rarity = rarity;
         this.power = power;
         this.timeEnergy = timeEnergy;
         this.ability = ability;
