@@ -1,3 +1,5 @@
+package Cards;
+import ClientService.Inventory;
 public class Deck {
     private String name;
     private QueueCards cards; 

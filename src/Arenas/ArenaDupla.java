@@ -1,4 +1,7 @@
+package Arenas;
 import java.util.Random;
+import ClientService.*;
+import Cards.*;
 
 public class ArenaDupla  extends Arena {
     private User player3;

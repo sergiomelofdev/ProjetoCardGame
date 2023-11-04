@@ -1,5 +1,8 @@
+package Arenas;
 import java.util.ArrayList;
 import java.util.Random;
+import ClientService.*;
+import Cards.*;
 
 public class Arena {
     protected ArrayList<Field> fields; //todos os campos da arena

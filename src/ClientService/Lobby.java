@@ -1,3 +1,5 @@
+package ClientService;
+import Arenas.*;
 public class Lobby {
 
     private User[] players;
@@ -105,10 +107,10 @@ public class Lobby {
     // Método para iniciar a Arena
     private void startArena(Lobby lobbyOpponent) {
         if(gameMode.equals("Dual_Mode")){
-            ArenaDupla arenaDupla = new ArenaDupla(lobbyOpponent.getPlayers(), getPlayers());
+            ArenaDupla arenaDupla = new ArenaDupla(this , lobbyOpponent);
             arenaDupla.startGame();
         }
-        Arena arena = new Arena(lobbyOpponent.getPlayers(), getPlayers());
+        Arena arena = new Arena(this, lobbyOpponent);
         arena.startGame();
     }
 }

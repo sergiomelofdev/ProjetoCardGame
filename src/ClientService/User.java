@@ -1,3 +1,7 @@
+package ClientService;
+
+import Cards.Deck;
+
 public class User implements Comparable<User> {
     private String login;
     private String cpf;

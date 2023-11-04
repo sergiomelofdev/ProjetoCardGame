@@ -1,3 +1,5 @@
+package Enumerates;
+
 public enum EnumRarityCard{
     //apenas sugestao
     COMMON(0.60), 

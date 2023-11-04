@@ -1,3 +1,6 @@
+package Enumerates;
+
+
 public enum EnumEffectField {
     noEffect,
     disableCardEffects,

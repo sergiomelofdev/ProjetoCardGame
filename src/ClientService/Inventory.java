@@ -1,3 +1,7 @@
+package ClientService;
+
+import Cards.Card;
+
 public class Inventory {
     private Card[] cards;
     private boolean[] cardsInInventoryByID;

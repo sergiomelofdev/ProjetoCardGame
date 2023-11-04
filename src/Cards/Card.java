@@ -1,3 +1,6 @@
+package Cards;
+import Enumerates.EnumRarityCard;
+
 public class Card {
     private String name;
     private String image;

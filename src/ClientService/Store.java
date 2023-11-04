@@ -1,7 +1,9 @@
+package ClientService;
+
 import java.util.Random;
 
-import Cards.Card;
-import Enumerates.EnumRarityCard;
+import Cards.*;
+import Enumerates.*;
 
 public class Store {
     private String cardNumber;
@@ -32,9 +34,9 @@ public class Store {
         int boosterPrice = 200; // Preço de um booster em CardCoins (ajuste conforme necessário)
 
         if (inventory.wasteCardCoin(boosterPrice)) {
-            Card boosterPack = generateBoosterPremium();
+            Card cardBoosterPack = generateBoosterPremium();
             
-            if(!inventory.incrementCardInInventory(card)){ //se o usuario n conseguir adicionar a carta no inventario, 
+            if(!inventory.incrementCardInInventory(cardBoosterPack)){ //se o usuario n conseguir adicionar a carta no inventario, 
                 inventory.earnCardCoin(200);      //quer dizer q ele ja tem ela logo ganha um "reembolso" de cardCoins
             }
         }
@@ -46,7 +48,7 @@ public class Store {
         Card[] boosterPack = new Card[qtdCardsBoosterPack];
         //para preencher o booster pack é gerado 12 cartas aleatorias
         for (int posBoosterPack = 0; posBoosterPack < qtdCardsBoosterPack; posBoosterPack++) {
-            Card card = new Card("Carta Aleatória " + (posBoosterPack + 1), "imagem","type", card.generateRarityCard(), 2, 3, 5, "ability");
+            Card card = new Card("Carta Aleatória " + (posBoosterPack + 1), "imagem","type", EnumRarityCard.COMMON, 2, 3, "ability");
             boosterPack[posBoosterPack] = card;
             posBoosterPack++;
         }
@@ -54,7 +56,7 @@ public class Store {
     }
     private Card generateBoosterPremium() {
         //booster q gera apenas uma carta aleatória mas ela sempre sera lendaria
-        Card card = new Card("Carta Aleatória", "imagem","type", EnumRarityCard.LEGENDARY, 2, 3, 5, "ability");
+        Card card = new Card("Carta Aleatória", "imagem","type", EnumRarityCard.LEGENDARY, 2, 3, "ability");
         return card;
     }
 

@@ -1,3 +1,4 @@
+package Cards;
 public class QueueCards {
     private Card[] vetorQueue;
     private int lastCardInQueue;

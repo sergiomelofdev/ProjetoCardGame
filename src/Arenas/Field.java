@@ -1,4 +1,6 @@
-
+package Arenas;
+import Cards.Card;
+import Enumerates.EnumEffectField;
 // Classe que representa o campo do jogo falta implementar atributos = sub camos e seu tamanho e habilidade/tipo/efeito, metodos de retirar e inserir cartas 
 public class Field {
     //atributos referentes ao lado jogador q esta visualizando o jogo 
@@ -12,7 +14,7 @@ public class Field {
     private int opponentSideFieldTotalPower;	
     
     private String nameField;	
-    private EffectField effectField;
+    private EnumEffectField effectField;
     private final int maxCardsSubField = 4; // tamanho max de cartas em cada campo ainda a ser determinado
 
     public int getYourSideFieldTotalPower() {
@@ -22,9 +24,9 @@ public class Field {
         return opponentSideFieldTotalPower;
     }
     
-    public Field(String nameField, EffectField effectField) {
-        this.nameField = nameField;
-        this.effectField = effectField;
+    public Field() {
+        this.nameField = "nome generico de campo";
+        this.effectField = EnumEffectField.noEffect;
         yourSubField = new Card[maxCardsSubField/2][maxCardsSubField/2];
         subFieldOpponent = new Card[maxCardsSubField/2][maxCardsSubField/2];
     }
