@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class CardManageResource extends AbstractReadResource{
     public ArrayList<Card> getAllCards() throws IOException {
-        String jsonCards = readResouceFile(getResourcePath("GlobalResources", "Cards.json"));
+        String jsonCards = readResourceFile(getResourcePath("GlobalResources", "Cards.json"));
         // gerar o tipo de objeto para ler o json:
         TypeToken<ArrayList<Card>> typeArrayListCards = new TypeToken<ArrayList<Card>>(){};
         return new Gson().fromJson(jsonCards, typeArrayListCards); //retorna todas as cartas

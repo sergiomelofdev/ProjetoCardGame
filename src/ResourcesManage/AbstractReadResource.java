@@ -10,7 +10,7 @@ public abstract class AbstractReadResource {
         Path caminhoRelativo = Paths.get("resources", typeResouces, nameFile);
         return Paths.get(System.getProperty("user.dir")).resolve(caminhoRelativo);
     }
-    public String readResouceFile(Path resouceFilePath) throws IOException {
+    public String readResourceFile(Path resouceFilePath) throws IOException {
         return String.join(" ",
                 Files.readAllLines(
                         resouceFilePath,

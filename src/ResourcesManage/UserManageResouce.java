@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class UserManageResouce extends AbstractReadResource{
     public ArrayList<User> getAllUsers() throws IOException {
-        String jsonUsers = readResouceFile(getResourcePath("GlobalResources", "Users.json"));
+        String jsonUsers = readResourceFile(getResourcePath("GlobalResources", "Users.json"));
         // gerar o tipo de objeto para ler o json:
         TypeToken<ArrayList<User>> typeArrayListUsers = new TypeToken<ArrayList<User>>(){};
         return new Gson().fromJson(jsonUsers, typeArrayListUsers); //retorna todas os usuarios
